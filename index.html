@@ -1,4 +1,29 @@
-<!DOCTYPE html> <html>
-  <body>
-  <video src="video.mp4" controls></video>
-  </body> </html> 
+<!DOCTYPE html>
+<html>
+<body style="margin:0; overflow:hidden; background:#000;">
+  <video id="v" src="video.mp4" autoplay muted loop playsinline
+         style="width:100vw; height:100vh; object-fit:cover; cursor:pointer;">
+  </video>
+
+  <div id="hint" style="position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+       color:#fff; font-family:sans-serif; font-size:18px; pointer-events:none;
+       text-shadow:0 2px 4px rgba(0,0,0,0.8);">
+    🔊 点击画面开启声音
+  </div>
+
+  <script>
+    const video = document.getElementById('v');
+    const hint = document.getElementById('hint');
+
+    document.addEventListener('click', function once() {
+      video.muted = false;
+      hint.style.display = 'none';
+
+      if (video.requestFullscreen) video.requestFullscreen();
+      else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+
+      document.removeEventListener('click', once);
+    }, { once: true });
+  </script>
+</body>
+</html>
